@@ -545,7 +545,7 @@
     <hop>
       <from>ReadJoinTable</from>
       <to>Insert data into host sql</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
   </order>
   <step>
