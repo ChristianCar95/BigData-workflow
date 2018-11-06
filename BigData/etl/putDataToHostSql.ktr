@@ -591,8 +591,7 @@
       <schema_name/>
     </partitioning>
     <connection>Hive</connection>
-    <sql>SELECT * FROM spotify_tracks;
-</sql>
+    <sql>SELECT * FROM spotify_tracks;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
