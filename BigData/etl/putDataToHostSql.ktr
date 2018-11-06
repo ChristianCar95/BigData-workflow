@@ -595,6 +595,31 @@
         <condition>=</condition>
         <name2/>
       </key>
+      <value>
+        <name>id</name>
+        <rename>id</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>name</name>
+        <rename>name</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>tempo</name>
+        <rename>tempo</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>energy</name>
+        <rename>energy</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>genre</name>
+        <rename>genre</rename>
+        <update>Y</update>
+      </value>
     </lookup>
     <cluster_schema/>
     <remotesteps>
