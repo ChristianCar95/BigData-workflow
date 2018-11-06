@@ -488,7 +488,7 @@
   </connection>
   <connection>
     <name>HostSql</name>
-    <server>185.245.98.189</server>
+    <server>localhost</server>
     <type>MYSQL</type>
     <access>Native</access>
     <database>spotify</database>
