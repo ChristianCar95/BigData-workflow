@@ -439,7 +439,29 @@
       <description/>
       <type>SQL</type>
       <sql>DROP TABLE IF EXISTS spotify_trackInfos;
-</sql>
+CREATE EXTERNAL TABLE spotify_trackInfos(
+id STRING,
+name STRING)
+COMMENT "spotify track information" ROW FORMAT DELIMITED FIELDS TERMINATED BY "\u003B" STORED AS
+TEXTFILE LOCATION "/user/hadoop/spotify/trackInfos";
+
+DROP TABLE IF EXISTS spotify_audioFeatures;
+CREATE EXTERNAL TABLE spotify_audioFeatures(
+id STRING,
+energy STRING,
+tempo FLOAT)
+COMMENT "spotify track audio feature information" ROW FORMAT DELIMITED FIELDS TERMINATED BY "\u003B" STORED AS
+TEXTFILE LOCATION "/user/hadoop/spotify/audioFeatures";
+
+DROP TABLE IF EXISTS spotify_tracks;
+CREATE EXTERNAL TABLE spotify_tracks(
+id STRING,
+name STRING,
+energy FLOAT,
+tempo FLOAT,
+genre STRING)
+COMMENT "spotify track information joined" ROW FORMAT DELIMITED FIELDS TERMINATED BY "\u003B" STORED AS
+TEXTFILE LOCATION "/user/hadoop/spotify/track";</sql>
       <useVariableSubstitution>T</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
