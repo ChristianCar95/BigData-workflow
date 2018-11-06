@@ -437,7 +437,7 @@
   </notepads>
   <connection>
     <name>Hive</name>
-    <server>localhost</server>
+    <server>big-data.mariuskiessling.de</server>
     <type>HIVE2</type>
     <access>Native</access>
     <database>default</database>
@@ -565,6 +565,36 @@
     <lookup>
       <schema>spotify</schema>
       <table>tracks</table>
+      <key>
+        <name>id</name>
+        <field>id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>name</name>
+        <field>name</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>tempo</name>
+        <field>tempo</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>energy</name>
+        <field>energy</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>genre</name>
+        <field>genre</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
     </lookup>
     <cluster_schema/>
     <remotesteps>
@@ -591,7 +621,7 @@
       <schema_name/>
     </partitioning>
     <connection>Hive</connection>
-    <sql>SELECT id, name, tempo, energy, genre FROM spotify_tracks;</sql>
+    <sql>SELECT id, name, tempo, energy, genre FROM spotify_tracks</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
