@@ -488,11 +488,11 @@
   </connection>
   <connection>
     <name>HostSql</name>
-    <server/>
+    <server>185.245.98.189</server>
     <type>MYSQL</type>
-    <access>ODBC</access>
-    <database>localhost</database>
-    <port>1521</port>
+    <access>Native</access>
+    <database>spotify</database>
+    <port>3306</port>
     <username>hadoop</username>
     <password>Encrypted 6863daf7c0b802c6968ba409a671da9da0ca</password>
     <servername/>
@@ -513,7 +513,7 @@
       </attribute>
       <attribute>
         <code>PORT_NUMBER</code>
-        <attribute>1521</attribute>
+        <attribute>3306</attribute>
       </attribute>
       <attribute>
         <code>PRESERVE_RESERVED_WORD_CASE</code>
@@ -522,6 +522,10 @@
       <attribute>
         <code>QUOTE_ALL_FIELDS</code>
         <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
       </attribute>
       <attribute>
         <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>

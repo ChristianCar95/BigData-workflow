@@ -1,16 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>startRequestSpotifyData</name>
+  <name>createPartition</name>
   <description/>
   <extended_description/>
   <job_version/>
   <directory>/</directory>
   <created_user>-</created_user>
-  <created_date>2018/11/01 12:19:24.153</created_date>
+  <created_date>2018/11/06 14:50:05.972</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2018/11/01 12:19:24.153</modified_date>
+  <modified_date>2018/11/06 14:50:05.972</modified_date>
   <parameters>
     </parameters>
+  <connection>
+    <name>hive</name>
+    <server>185.245.98.189</server>
+    <type>HIVE2</type>
+    <access>Native</access>
+    <database>default</database>
+    <port>10000</port>
+    <username>hadoop</username>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>10000</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
   <slaveservers>
     </slaveservers>
   <job-log-table>
@@ -370,8 +421,48 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>96</xloc>
-      <yloc>176</yloc>
+      <xloc>448</xloc>
+      <yloc>352</yloc>
+    </entry>
+    <entry>
+      <name>SQL</name>
+      <description/>
+      <type>SQL</type>
+      <sql>set mapreduce.job.reduces=4;
+
+CREATE TABLE IF NOT EXISTS tracks_partitioned(
+id STRING,
+name STRING,
+energy FLOAT,
+tempo FLOAT,
+genre STRING
+) PARTITIONED BY (partition_genre STRING)
+STORED AS ORCFILE LOCATION '/user/hadoop/spotify/genre_partitioned';
+
+INSERT OVERWRITE TABLE tracks_partitioned partition(partition_genre="pop")
+SELECT r.id, r.name, r.energy, r.tempo, r.genre  FROM spotify_tracks r WHERE r.genre = "pop";
+
+INSERT OVERWRITE TABLE tracks_partitioned partition(partition_genre="rock")
+SELECT r.id, r.name, r.energy, r.tempo, r.genre  FROM spotify_tracks r WHERE r.genre = "rock";
+
+INSERT OVERWRITE TABLE tracks_partitioned partition(partition_genre="klassik")
+SELECT r.id, r.name, r.energy, r.tempo, r.genre  FROM spotify_tracks r WHERE r.genre = "klassik";
+
+INSERT OVERWRITE TABLE tracks_partitioned partition(partition_genre="jazz")
+SELECT r.id, r.name, r.energy, r.tempo, r.genre  FROM spotify_tracks r WHERE r.genre = "jazz";
+
+
+</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>hive</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>640</xloc>
+      <yloc>352</yloc>
     </entry>
     <entry>
       <name>Success</name>
@@ -380,48 +471,14 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>416</xloc>
-      <yloc>176</yloc>
-    </entry>
-    <entry>
-      <name>Shell</name>
-      <description/>
-      <type>SHELL</type>
-      <filename/>
-      <work_directory/>
-      <arg_from_previous>N</arg_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <set_append_logfile>N</set_append_logfile>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <insertScript>Y</insertScript>
-      <script>cd /home/hadoop/spotify/spotifyGetData; ./BigData</script>
-      <loglevel>Basic</loglevel>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>256</xloc>
-      <yloc>176</yloc>
-    </entry>
-    <entry>
-      <name>cant open BigData program</name>
-      <description/>
-      <type>ABORT</type>
-      <message>cant open BigData program</message>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>256</xloc>
-      <yloc>320</yloc>
+      <xloc>864</xloc>
+      <yloc>352</yloc>
     </entry>
   </entries>
   <hops>
     <hop>
       <from>START</from>
-      <to>Shell</to>
+      <to>SQL</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -429,7 +486,7 @@
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>Shell</from>
+      <from>SQL</from>
       <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -437,32 +494,7 @@
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
-    <hop>
-      <from>Shell</from>
-      <to>cant open BigData program</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
   </hops>
   <notepads>
   </notepads>
-  <attributes>
-    <group>
-      <name>METASTORE.pentaho</name>
-      <attribute>
-        <key>Default Run Configuration</key>
-        <value>{"namespace":"pentaho","id":"Default Run Configuration","name":"Default Run Configuration","description":"Defines a default run configuration","metaStoreName":null}</value>
-      </attribute>
-    </group>
-    <group>
-      <name>{"_":"Embedded MetaStore Elements","namespace":"pentaho","type":"Default Run Configuration"}</name>
-      <attribute>
-        <key>Pentaho local</key>
-        <value>{"children":[{"children":[],"id":"server","value":null},{"children":[],"id":"clustered","value":"N"},{"children":[],"id":"name","value":"Pentaho local"},{"children":[],"id":"description","value":null},{"children":[],"id":"pentaho","value":"N"},{"children":[],"id":"readOnly","value":"Y"},{"children":[],"id":"sendResources","value":"N"},{"children":[],"id":"logRemoteExecutionLocally","value":"N"},{"children":[],"id":"remote","value":"N"},{"children":[],"id":"local","value":"Y"},{"children":[],"id":"showTransformations","value":"N"}],"id":"Pentaho local","value":null,"name":"Pentaho local","owner":null,"ownerPermissionsList":[]}</value>
-      </attribute>
-    </group>
-  </attributes>
 </job>

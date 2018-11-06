@@ -517,7 +517,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>624</xloc>
-      <yloc>64</yloc>
+      <yloc>48</yloc>
     </entry>
     <entry>
       <name>partitionJoinedTable</name>
@@ -525,7 +525,7 @@
       <type>JOB</type>
       <specification_method>filename</specification_method>
       <job_object_id/>
-      <filename/>
+      <filename>${Internal.Entry.Current.Directory}/createPartition.kjb</filename>
       <jobname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -551,7 +551,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>800</xloc>
-      <yloc>272</yloc>
+      <yloc>48</yloc>
     </entry>
     <entry>
       <name>putDataToHostFs</name>
@@ -663,7 +663,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>800</xloc>
-      <yloc>416</yloc>
+      <yloc>160</yloc>
     </entry>
     <entry>
       <name>AbortCreateSqlTables</name>
@@ -796,24 +796,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>partitionJoinedTable</from>
-      <to>putDataToHostFs</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>N</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>putDataToHostFs</from>
-      <to>readSqlAndCreateHtml</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>N</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>readSqlAndCreateHtml</from>
       <to>Success</to>
       <from_nr>0</from_nr>
@@ -896,7 +878,16 @@
     </hop>
     <hop>
       <from>createSqlTables</from>
-      <to>partitionJoinedTable</to>
+      <to>putDataToHostFs</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>putDataToHostFs</from>
+      <to>readSqlAndCreateHtml</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>N</enabled>

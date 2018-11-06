@@ -442,25 +442,25 @@
 SELECT i.id,i.name,f.energy, f.tempo, "pop"
 FROM spotify_audioFeatures f JOIN  spotify_trackInfos i
 ON (i.id = f.id)
-WHERE energy > 0.5 AND tempo > 80;
+WHERE energy > 0.45 AND tempo > 80 AND tempo &lt; 130;
 
 INSERT INTO spotify_tracks (id, name, energy, tempo, genre)
 SELECT i.id,i.name,f.energy, f.tempo, "rock"
 FROM spotify_audioFeatures f JOIN  spotify_trackInfos i
 ON (i.id = f.id)
-WHERE tempo > 100; 
+WHERE energy > 0.7 AND tempo > 100;
 
 INSERT INTO spotify_tracks (id, name, energy, tempo, genre)
 SELECT i.id,i.name,f.energy, f.tempo, "klassik"
 FROM spotify_audioFeatures f JOIN  spotify_trackInfos i
 ON (i.id = f.id)
-WHERE energy &lt; 0.5;
+WHERE energy &lt; 0.2;
 
 INSERT INTO spotify_tracks (id, name, energy, tempo, genre)
 SELECT i.id,i.name,f.energy, f.tempo, "jazz"
 FROM spotify_audioFeatures f JOIN  spotify_trackInfos i
 ON (i.id = f.id)
-WHERE energy &lt; 0.3 AND tempo &lt; 120; </sql>
+WHERE energy &lt; 0.5 AND tempo > 100; </sql>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
